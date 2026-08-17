@@ -1,9 +1,12 @@
 import { Link } from "expo-router";
 import { Text, View } from "react-native";
 
+
 export default function App() {
+  const handlePress = () => {
+    console.log("hello");
+  };
   return (
-    
     <View className="flex-1 items-center justify-center bg-background">
       <Text className="text-xl font-bold text-success">Welcome to Nativewind!</Text>
       <View className="flex flex-col gap-5">
@@ -17,9 +20,14 @@ export default function App() {
           Register
         </Link>
 
-        <Link href="/(tab)/settings" className="bg-primary text-white text-center p-5 rounded-2xl">settings</Link>
+        <Link href="/(tab)/settings" className="bg-primary text-white text-center p-5 rounded-2xl">
+          settings
+        </Link>
 
-        <Link href={{ pathname: "/subscriptions/[id]", params: { id: "claude" } }} className="bg-primary text-white text-center p-5 rounded-2xl">subscription details</Link>
+        <Link href={{ pathname: "/subscriptions/[id]", params: { id: "claude" } }} className="bg-primary text-white text-center p-5 rounded-2xl">
+          subscription details
+        </Link>
+        {/* <House size={24} color="red" onPress={handlePress}/> */}
       </View>
     </View>
   );
