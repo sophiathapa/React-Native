@@ -1,18 +1,12 @@
+import { tabs } from "@/constraints/data";
 import { colors, components } from "@/constraints/theme";
 import "@/global.css";
 import { Tabs } from "expo-router";
-import { House, Settings, SquareCheckBig, SquareStar } from "lucide-react-native";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const { tabBar } = components;
 
-const tabs = [
-  { name: "index", title: "Home", icon: House },
-  { name: "insights", title: "Insights", icon: SquareStar },
-  { name: "subscriptions", title: "Subscriptions", icon: SquareCheckBig },
-  { name: "settings", title: "Settings", icon: Settings },
-];
 
 export default function RootLayout() {
   const insets = useSafeAreaInsets();
