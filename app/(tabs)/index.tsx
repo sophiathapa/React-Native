@@ -1,9 +1,10 @@
 import ListHeading from "@/components/ListHeading";
-import SubcribtionCard from "@/components/SubcribtionCard";
+import SubscriptionCard from "@/components/SubscriptionCard";
 import UpcomingSubcribtionCard from "@/components/UpcomingSubcribtionCard";
-import { HOME_BALANCE, HOME_SUBSCRIPTIONS, HOME_USER, UPCOMING_SUBSCRIPTIONS } from "@/constraints/data";
+import { HOME_BALANCE, HOME_SUBSCRIPTIONS, UPCOMING_SUBSCRIPTIONS } from "@/constraints/data";
 import images from "@/constraints/images";
 import { formatCurrency } from "@/lib/utils";
+import { useUser } from "@clerk/expo";
 import dayjs from "dayjs";
 import { CirclePlus } from "lucide-react-native";
 import { styled } from "nativewind";
@@ -14,7 +15,10 @@ import { SafeAreaView as RNSafeAreaView } from "react-native-safe-area-context";
 const SafeAreaView = styled(RNSafeAreaView); //add tailwind style to the SafeAreaView
 
 export default function App() {
-  const [subcriptionId, setSubcriptionId] = useState<string|null>(null);
+  const { user } = useUser();
+  const [subcriptionId, setSubcriptionId] = useState<string | null>(null);
+  const displayName = user?.firstName || user?.fullName || user?.emailAddresses[0]?.emailAddress || "User";
+
   return (
     <SafeAreaView className="p-5 bg-background min-h-screen">
       <FlatList
@@ -22,8 +26,8 @@ export default function App() {
           <>
             <View className="flex flex-row justify-between items-center">
               <View className="flex flex-row gap-3 items-center">
-                <Image source={images.avatar} className="size-16" alt="avtar" />
-                <Text className="text-2xl font-sans-bold text-primary">{HOME_USER.name}</Text>
+                <Image source={user?.imageUrl ? { uri: user?.imageUrl } : images.avatar} className="size-16 rounded-full" alt="avtar" />
+                <Text className="text-lg font-sans-bold text-primary">{displayName}</Text>
               </View>
               <CirclePlus color={"black"} size={40} strokeWidth={1} />
             </View>
@@ -49,15 +53,7 @@ export default function App() {
           </>
         )}
         data={HOME_SUBSCRIPTIONS}
-        renderItem={({ item }) => (
-          <SubcribtionCard
-            {...item}
-            expanded={subcriptionId === item.id}
-            onPress={()=> 
-              setSubcriptionId((currentId)=> currentId === item.id ? null : item.id)
-            }
-          />
-        )}
+        renderItem={({ item }) => <SubscriptionCard {...item} expanded={subcriptionId === item.id} onPress={() => setSubcriptionId((currentId) => (currentId === item.id ? null : item.id))} />}
         showsVerticalScrollIndicator={false}
         extraData={subcriptionId}
         ListEmptyComponent={<Text>No subcribtion</Text>}

@@ -3,9 +3,9 @@ import { SubscriptionCardProps } from "@/type";
 import React from "react";
 import { Image, Pressable, Text, View } from "react-native";
 
-const SubcribtionCard = ({ name, icon, renewalDate, currency, price, color, category, plan, billing, expanded, onPress, paymentMethod, status, startDate }: SubscriptionCardProps) => {
+const SubscriptionCard = ({ name, icon, renewalDate, currency, price, color, category, plan, billing, expanded, onPress, paymentMethod, status, startDate }: SubscriptionCardProps) => {
   return (
-    <Pressable onPress={onPress} className="flex flex-col bg-accent rounded-tr-2xl rounded-bl-2xl p-5 mt-5" style={color && !expanded ? { backgroundColor: color } : { backgroundColor: "bg-subscription" }}>
+    <Pressable onPress={onPress} className="flex flex-col bg-accent rounded-tr-2xl rounded-bl-2xl p-5" style={color && !expanded ? { backgroundColor: color } : { backgroundColor: "bg-subscription" }}>
       <View className="flex flex-row justify-between items-center">
         <View className="flex flex-row gap-3 items-center">
           <View className="bg-muted rounded-2xl p-3">
@@ -74,4 +74,4 @@ const SubcribtionCard = ({ name, icon, renewalDate, currency, price, color, cate
   );
 };
 
-export default SubcribtionCard;
+export default SubscriptionCard;
