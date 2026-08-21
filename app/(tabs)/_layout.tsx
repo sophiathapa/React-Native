@@ -1,7 +1,8 @@
 import { tabs } from "@/constraints/data";
 import { colors, components } from "@/constraints/theme";
 import "@/global.css";
-import { Tabs } from "expo-router";
+import { useAuth } from "@clerk/expo";
+import { Redirect, Tabs } from "expo-router";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -10,6 +11,15 @@ const { tabBar } = components;
 
 export default function RootLayout() {
   const insets = useSafeAreaInsets();
+  const { isSignedIn, isLoaded } = useAuth();
+
+  if (!isLoaded) {
+      return null;
+  }
+
+  if (!isSignedIn) {
+      return <Redirect href="/(auth)/sign-in" />;
+  }
 
   return (
     <Tabs
